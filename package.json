@@ -1,0 +1,18 @@
+{
+  "name": "@btzy/libsourceror",
+  "version": "0.0.1",
+  "description": "Source standard library for Sourceror",
+  "main": "src/",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btzy/libsourceror.git"
+  },
+  "author": "Bernard Teo",
+  "bugs": {
+    "url": "https://github.com/btzy/libsourceror/issues"
+  },
+  "homepage": "https://github.com/btzy/libsourceror#readme"
+}
