@@ -1,0 +1,121 @@
+const Infinity = 1 / 0;
+const NaN = 0 * Infinity;
+const undefined = (() => {})();
+
+// Currently not supported by host
+/*function __display_1(v) {
+    __ffi_display(stringify(v));
+}
+function __display_2(v, s) {
+    __ffi_display(s + stringify(v));
+}
+function __error_1(v) {
+    __ffi_error(stringify(v));
+}
+function __error_2(v, s) {
+    __ffi_error(s + stringify(v));
+}*/
+
+__attributes = "direct";
+function is_undefined(v) {
+    return false;
+}
+__attributes = "direct;constraint=v:undefined";
+function is_undefined(v) {
+    return true;
+}
+__attributes = "direct";
+function is_boolean(v) {
+    return false;
+}
+__attributes = "direct;constraint=v:boolean";
+function is_boolean(v) {
+    return true;
+}
+__attributes = "direct";
+function is_number(v) {
+    return false;
+}
+__attributes = "direct;constraint=v:number";
+function is_number(v) {
+    return true;
+}
+__attributes = "direct";
+function is_string(v) {
+    return false;
+}
+__attributes = "direct;constraint=v:string";
+function is_string(v) {
+    return true;
+}
+__attributes = "direct";
+function is_function(v) {
+    return false;
+}
+__attributes = "direct;constraint=v:function";
+function is_function(v) {
+    return true;
+}
+
+/*function parse_int(s, i) {
+    return __parse_int(s, i);
+}*/
+/*function prompt(s) {
+    return __ffi_prompt(s);
+}
+function runtime() {
+    return __ffi_time();
+}*/
+
+function stringify_number(v) {
+    if (v === 0) {
+        return "";
+    } else {
+        const d = v % 10;
+        return stringify_number((v - d) / 10) +
+            (
+                d === 0 ? "0" :
+                d === 1 ? "1" :
+                d === 2 ? "2" :
+                d === 3 ? "3" :
+                d === 4 ? "4" :
+                d === 5 ? "5" :
+                d === 6 ? "6" :
+                d === 7 ? "7" :
+                d === 8 ? "8" :
+                          "9"
+            );
+    }
+}
+
+__attributes = "direct";
+function stringify(v) {
+    return "(unstringifiable type)";
+}
+__attributes = "direct;constraint=v:undefined";
+function stringify(v) {
+    return "undefined";
+}
+__attributes = "direct;constraint=v:boolean";
+function stringify(v) {
+    return v ? "true" : "false";
+}
+__attributes = "direct;constraint=v:number";
+function stringify(v) {
+    return v === 0 ? "0"
+        : v < 0 ? "-" + stringify_number(-v)
+        : stringify_number(v);
+}
+__attributes = "direct;constraint=v:string";
+function stringify(v) {
+    return v;
+}
+__attributes = "direct;constraint=v:function";
+function stringify(v) {
+    return "(function)";
+}
+
+export {
+    Infinity, NaN, undefined,
+    is_undefined, is_boolean, is_number, is_string, is_function,
+    stringify };
