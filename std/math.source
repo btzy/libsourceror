@@ -1,0 +1,57 @@
+import { Infinity } from "misc";
+
+const math_E = 2.718281828459045;
+const math_LN2 = 0.6931471805599453;
+const math_LN10 = 2.302585092994046;
+const math_LOG2E = 1.4426950408889634;
+const math_LOG10E = 0.4342944819032518;
+const math_PI = 3.1415926535897932;
+const math_SQRT1_2 = 0.7071067811865476;
+const math_SQRT2 = 1.4142135623730951;
+
+// Note: we use direct functions with constraint for most exported functions here
+// because it will allow better error locations
+// (it will trap on entry into the function,
+// instead of somewhere inside the function in the implementation-specific code)
+
+__attributes = "direct;constraint=x:number";
+function math_abs(x) {
+    return x >= 0 ? x : -x;
+}
+
+__attributes = "direct;constraint=x:number";
+function math_sign(x) {
+    return x > 0 ? 1 : x < 0 ? -1 : 0;
+}
+
+// For now we don't support varargs, so these math functions are only restricted to two arguments
+
+__attributes = "direct";
+function math_max() {
+    return -Infinity;
+}
+__attributes = "direct;constraint=x:number";
+function math_max(x) {
+    return x;
+}
+__attributes = "direct;constraint=x:number,y:number";
+function math_max(x, y) {
+    return x < y ? y : x;
+}
+
+__attributes = "direct";
+function math_min() {
+    return Infinity;
+}
+__attributes = "direct;constraint=x:number";
+function math_min(x) {
+    return x;
+}
+__attributes = "direct;constraint=x:number,y:number";
+function math_min(x, y) {
+    return x < y ? x : y;
+}
+
+export {
+    math_E, math_LN2, math_LN10, math_LOG2E, math_LOG10E, math_PI, math_SQRT1_2, math_SQRT2,
+    math_abs, math_sign, math_max, math_min };
