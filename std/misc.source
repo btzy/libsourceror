@@ -1,20 +1,29 @@
+import { get_time, display as ffi_display, prompt as ffi_prompt, abort, parse_int, stringify_float } from "misc.ffi";
+
 const Infinity = 1 / 0;
 const NaN = 0 * Infinity;
 const undefined = (() => {})();
 
-// Currently not supported by host
-/*function __display_1(v) {
-    __ffi_display(stringify(v));
+__attributes = "direct";
+function display(v) {
+    ffi_display(stringify(v));
+    return v;
 }
-function __display_2(v, s) {
-    __ffi_display(s + stringify(v));
+__attributes = "direct;constraint=s:string";
+function display(v, s) {
+    ffi_display(s + " " + stringify(v));
+    return v;
 }
-function __error_1(v) {
-    __ffi_error(stringify(v));
+__attributes = "direct";
+function error(v) {
+    ffi_display(stringify(v));
+    abort();
 }
-function __error_2(v, s) {
-    __ffi_error(s + stringify(v));
-}*/
+__attributes = "direct;constraint=s:string";
+function error(v, s) {
+    ffi_display(s + " " + stringify(v));
+    abort();
+}
 
 __attributes = "direct";
 function is_undefined(v) {
@@ -57,14 +66,13 @@ function is_function(v) {
     return true;
 }
 
-/*function parse_int(s, i) {
-    return __parse_int(s, i);
-}*/
-/*function prompt(s) {
-    return __ffi_prompt(s);
-}*/
+__attributes = "direct;constraint=s:string";
+function prompt(s) {
+    let ret = ffi_prompt(s);
+    return ret === "\0" ? undefined : ret;
+}
 
-function stringify_number(v) {
+/*function stringify_number(v) {
     if (v === 0) {
         return "";
     } else {
@@ -83,7 +91,7 @@ function stringify_number(v) {
                           "9"
             );
     }
-}
+}*/
 
 __attributes = "direct";
 function stringify(v) {
@@ -99,13 +107,11 @@ function stringify(v) {
 }
 __attributes = "direct;constraint=v:number";
 function stringify(v) {
-    return v === 0 ? "0"
-        : v < 0 ? "-" + stringify_number(-v)
-        : stringify_number(v);
+    return stringify_float(v);
 }
 __attributes = "direct;constraint=v:string";
 function stringify(v) {
-    return v;
+    return "\"" + v + "\"";
 }
 __attributes = "direct;constraint=v:function";
 function stringify(v) {
@@ -115,7 +121,7 @@ function stringify(v) {
 export {
     Infinity, NaN, undefined,
     is_undefined, is_boolean, is_number, is_string, is_function,
-    stringify };
-
-import { get_time } from "misc.ffi";
-export { get_time };
+    stringify,
+    get_time,
+    display, error, prompt,
+    parse_int };

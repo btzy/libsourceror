@@ -1,2 +1,8 @@
 @SourceImports
 get_time misc get_time number
+display misc display undefined string
+prompt misc prompt string string
+abort core abort undefined
+parse_int misc parse_int number string number
+parse_float misc parse_float number string
+stringify_float misc stringify_float string number
