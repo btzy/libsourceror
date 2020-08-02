@@ -62,9 +62,6 @@ function is_function(v) {
 }*/
 /*function prompt(s) {
     return __ffi_prompt(s);
-}
-function runtime() {
-    return __ffi_time();
 }*/
 
 function stringify_number(v) {
@@ -119,3 +116,6 @@ export {
     Infinity, NaN, undefined,
     is_undefined, is_boolean, is_number, is_string, is_function,
     stringify };
+
+import { get_time } from "misc.ffi";
+export { get_time };

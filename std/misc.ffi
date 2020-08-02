@@ -1,4 +1,2 @@
-__ffi_display misc display undefined string
-__ffi_error misc error undefined string
-__ffi_prompt misc prompt string string
-__ffi_time misc time number
+@SourceImports
+get_time misc get_time number
